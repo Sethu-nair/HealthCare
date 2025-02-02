@@ -86,6 +86,6 @@ This video demonstrates our comprehensive health management app. We'll showcase 
 
 
 ## Team Contributions
-- Aksa Susan Mathew: - Wrote the project documentation and README file.  - Managed project communication and coordination.
-- Shona Mariyam Binu : Backend Development
-- Sethulakshmi S: Designed and implemented the user interface for the main application screen.
+- Aksa Susan Mathew: -Handled UI/UX designing. Wrote the project documentation and README file.  - Managed project communication and coordination.
+- Shona Mariyam Binu :Handled UI/UX designing. Backend Development
+- Sethulakshmi S:Designed and implemented the user interface for the main application screen.
