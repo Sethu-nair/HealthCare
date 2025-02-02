@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            padding: 20px;
+            background: url('./images/login.jpeg') no-repeat center center/cover;
+            justify-content: center;
+            align-items: flex-end;
+            padding-right: 10%;
+        }
+        h1 {
+            color: #fff;
+            font-size: xx-large;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .input-box {
+            width: 400px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            border: 2px solid white;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .input-box input {
+            width: 100%;
+            padding: 10px;
+            background: none;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: #fff;
+            text-align: left;
+        }
+        .input-box input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .button-box {
+            width: 400px;
+        }
+        .button-box button {
+            width: 100%;
+            padding: 12px;
+            background: #2f9f87;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .button-box button:hover {
+            background: #1E3C72;
+        }
+        .error-message {
+            color: red;
+            font-size: 16px;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Login</h1>
+    
+    <div class="input-box">
+        <input type="email" id="loginEmail" placeholder="Email">
+    </div>
+    <div class="input-box">
+        <input type="password" id="loginPassword" placeholder="Password">
+    </div>
+
+    <div class="button-box">
+        <button onclick="validateLogin()">Submit</button>
+    </div>
+
+    <p class="error-message" id="errorMsg">Incorrect email or password. Please try again.</p>
+
+    <script>
+        async function validateLogin() {
+            let enteredEmail = document.getElementById("loginEmail").value.trim();
+            let enteredPassword = document.getElementById("loginPassword").value.trim();
+    
+            if (!enteredEmail || !enteredPassword) {
+                alert("Please enter email and password.");
+                return;
+            }
+    
+            const response = await fetch("http://localhost:5000/api/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email: enteredEmail, password: enteredPassword })
+            });
+    
+            const data = await response.json();
+    
+            if (response.status === 200) {
+                localStorage.setItem("username", data.name); // Store username in localStorage
+                localStorage.setItem("token", data.token); // Store token in localStorage
+                alert("Login successful! Redirecting...");
+                window.location.href = "home.html"; // Redirect to home page
+            } else {
+                document.getElementById("errorMsg").style.display = "block";
+            }
+        }
+    </script>
+    
+</body>
+</html>

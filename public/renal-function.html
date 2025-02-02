@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renal Function Test Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js Library -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@300;400&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: url('./images/kid.jpg') no-repeat center center/cover;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .overlay {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+        }
+        h2 {
+            font-family: 'Playfair Display', serif;
+            color: #8b5e3c;
+            font-size: 2.5em;
+        }
+        label {
+            font-size: 1em;
+            font-weight: bold;
+            display: block;
+            text-align: left;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        button {
+            background-color: #8b5e3c;
+            color: white;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 8px;
+            padding: 14px;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #754c29;
+        }
+        
+        /* Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #8b5e3c;
+        }
+        canvas {
+            width: 100% !important;
+            height: 300px !important;
+        }
+        .diet-exercise-btns {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .diet-exercise-btns button {
+            width: 48%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="overlay">
+    <h2>Renal Function Test</h2>
+    <form id="analysisForm">
+        <label>Blood Urea (mg/dL):</label>
+        <input type="number" id="bloodUrea" required>
+
+        <label>Creatinine (mg/dL):</label>
+        <input type="number" id="creatinine" required>
+
+        <label>Uric Acid (mg/dL):</label>
+        <input type="number" id="uricAcid" required>
+
+        <label>Sodium (mmol/L):</label>
+        <input type="number" id="sodium" required>
+
+        <label>Potassium (mmol/L):</label>
+        <input type="number" id="potassium" required>
+
+        <label>Calcium (mg/dL):</label>
+        <input type="number" id="calcium" required>
+
+        <button type="submit">Analyze Results</button>
+    </form>
+</div>
+
+<!-- Modal (Popup) -->
+<div id="resultModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Test Analysis</h2>
+        <canvas id="resultsChart"></canvas>
+        <div class="diet-exercise-btns">
+            <button onclick="showDiet()">Diet Plan</button>
+            <button onclick="showExercise()">Exercise Plan</button>
+        </div>
+        <div id="recommendations" style="margin-top: 20px; text-align: left;"></div>
+    </div>
+</div>
+
+<script>
+    let resultsChart;
+
+    document.getElementById("analysisForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        
+        // Get input values
+        const bloodUrea = parseFloat(document.getElementById("bloodUrea").value);
+        const creatinine = parseFloat(document.getElementById("creatinine").value);
+        const uricAcid = parseFloat(document.getElementById("uricAcid").value);
+        const sodium = parseFloat(document.getElementById("sodium").value);
+        const potassium = parseFloat(document.getElementById("potassium").value);
+        const calcium = parseFloat(document.getElementById("calcium").value);
+        
+        // Normal reference values
+        const normalValues = [20, 1.0, 5.5, 140, 4.5, 9.5];
+        const patientValues = [bloodUrea, creatinine, uricAcid, sodium, potassium, calcium];
+        const labels = ["Blood Urea", "Creatinine", "Uric Acid", "Sodium", "Potassium", "Calcium"];
+
+        // Open modal
+        const modal = document.getElementById("resultModal");
+        modal.style.display = "flex";
+
+        // Wait a moment to ensure modal is displayed
+        setTimeout(() => {
+            const ctx = document.getElementById("resultsChart").getContext("2d");
+
+            // Destroy old chart if it exists
+            if (resultsChart) {
+                resultsChart.destroy();
+            }
+
+            // Draw new chart
+            resultsChart = new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: "Normal Range",
+                            data: normalValues,
+                            backgroundColor: "rgba(75, 192, 192, 0.6)",
+                        },
+                        {
+                            label: "Your Values",
+                            data: patientValues,
+                            backgroundColor: "rgba(255, 99, 132, 0.6)",
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }, 300);
+    });
+
+    function closeModal() {
+        document.getElementById("resultModal").style.display = "none";
+    }
+
+    function showDiet() {
+        document.getElementById("recommendations").innerHTML = "<h3>Recommended Diet</h3><p>🔹 Reduce sodium intake.<br>🔹 Eat fresh fruits & vegetables.<br>🔹 Stay hydrated with water.</p>";
+    }
+
+    function showExercise() {
+        document.getElementById("recommendations").innerHTML = "<h3>Recommended Exercise</h3><p>🔹 Daily 30-minute walks.<br>🔹 Light stretching & yoga.<br>🔹 Stay active but avoid overexertion.</p>";
+    }
+</script>
+<!-- footer.html -->
+<div style="text-align: center; margin-top: 30px; padding: 20px; position: fixed; bottom: -10px; width: 100%;">
+    <a href="home.html" style="
+        display: inline-block;
+        padding: 12px 24px;
+       
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 18px;
+        font-weight: bold;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    ">🏠 Go to Home</a>
+</div>
+
+</body>
+</html>

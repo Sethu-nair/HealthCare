@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Analyzer - Home</title>
+    <style>
+        /* General reset */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Background Image */
+        body {
+            background-image: url('./images/back.jpg'); /* Replace with your background image URL */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+        }
+
+        /* GIF Background Section */
+        .gif-background {
+            position: relative;
+            width: 100%;
+            height: 90vh;
+            background: url('./images/animation.gif') center/cover no-repeat; /* Replace with your GIF file */
+            z-index: -1;
+        }
+
+        /* Content Wrapper */
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            color: black;
+        }
+
+        /* Header Section */
+        .header {
+            background: rgba(0, 128, 128, 0.8);
+            color: white;
+            padding: 15px;
+            font-size: 28px;
+            text-align: center;
+        }
+
+        /* Paragraph Section */
+        .website-details {
+            font-size: 16px;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 20px auto;
+            color: black;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #008080;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background: #005555;
+        }
+
+        /* Section Style */
+        .section {
+            padding: 40px 20px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.3);
+            margin-top: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            margin: 20px auto;
+            color: black;
+        }
+
+        .section h2 {
+            font-size: 24px;
+            color: #008080;
+        }
+
+        .section p {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-top: 10px;
+        }
+
+        /* Chart Section */
+        .chart-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .chart-section img {
+            max-width: 60%; /* Reduce GIF size */
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .chart-section .btn {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- GIF Background -->
+    <div class="gif-background"></div>
+
+    <!-- Content Wrapper with Website Details -->
+    <div class="content-wrapper">
+        <div class="header">Health Analyzer</div>
+
+        <div class="website-details">
+            <p>Welcome to Health Analyzer, your personal assistant for analyzing lab reports and providing tailored recommendations to improve your health...</p>
+             <p></p>
+            <p>Let's start our journey</p>
+        </div>
+    </div>
+
+    <!-- Lab Result Analysis Chart -->
+    <div class="section">
+        <h2>Lab Result Analysis</h2>
+        <p>Analyze your lab results with graphical representations of key health metrics...</p>
+        <div class="chart-section">
+            <img src="./images/report.gif" alt="Lab Result Chart">
+            <a href="disease.html" class="btn">Start Your Analysis</a>
+        </div>
+    </div>
+
+    <!-- AI Chatbot Section -->
+    <div class="section">
+        <h2>AI Chatbot</h2>
+        <p>Chat with our AI assistant for personalized health recommendations...</p>
+        <div class="chart-section">
+            <img src="./images/ai.gif" alt="Lab Result Chart">
+            
+            <a href="https://poe.com/Nutrionix" class="btn" target="_blank">Talk to the AI</a>
+
+        </div>
+        
+    </div>
+    <!-- Contact Doctors Section -->
+<div class="section">
+    <h2>Contact Doctors</h2>
+    <p>Need professional medical advice? Connect with healthcare professionals for expert guidance.</p>
+    <div class="chart-section">
+        <img src="./images/doc.gif" alt="Contact a Doctor"> <!-- Replace with a relevant image -->
+        <a href="doctor.html" class="btn">Find a Doctor</a>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Realtime bp monitor</h2>
+    <p>Monitors bp continously and give alerts if it is unstable.</p>
+    <div class="chart-section">
+        <img src="images/wa.gif" alt="Contact a Doctor"> <!-- Replace with a relevant image -->
+        <a href="bp.html" class="btn">BP MONITOR</a>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Articles</h2>
+    <p>Insights and analysis on the latest medical research and health trends..</p>
+    <div class="chart-section">
+        <a href="rep.pdf" target="_blank">
+            <img src="./images/rep1.jpg" alt="Click to open PDF" height="800" width="600">
+        </a>
+        
+    </div>
+</div>
+
+</body>
+</html>

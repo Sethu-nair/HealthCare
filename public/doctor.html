@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctors Directory</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: white;
+            background-image: url('./images/blue.jpg');  /* Add background image */
+            background-size: cover;  /* Makes the image cover the entire page */
+            background-position: center center;  /* Centers the image */
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 2rem;
+            width: 50%;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* added text shadow for border */
+        }
+
+        h2 {
+            color: #32aabd;
+            text-align: center;  /* Center the header text */
+        }
+
+        /* New Container for departments to display them side by side */
+        .departments-container {
+            display: flex;
+            flex-wrap: wrap; /* Allows wrapping to the next line if needed */
+            justify-content: space-between;
+            width: 90%; /* Controls the width of the section */
+            margin-top: -50px; /* Adding some space from the header */
+            margin-bottom: 50px;
+        }
+
+        .department {
+            padding: 20px;
+            margin: 10px; /* Reduced margin to bring containers closer */
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 48%; /* Adjusted width for 2 columns in a row */
+            box-sizing: border-box; /* Ensure padding and margin are included in width */
+        }
+
+        .doctor {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center the content */
+        }
+
+        .doctor img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .doctor p {
+            margin: 5px 0;
+            text-align: center; /* Centers the text */
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            /*background-color: #48a7c7;*/
+            color: white;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Doctors Directory</h1>
+</header>
+
+<!-- Wrapper for department containers to display side by side -->
+<div class="departments-container">
+
+    <!-- Cardiologist Department -->
+    <div class="department">
+        <h2>Cardiologist</h2>
+        <div class="doctor">
+            <img src="./images/b1.jpg" alt="Dr. John Doe"> <!-- Placeholder image -->
+            <div>
+                <h3>Dr. John Doe</h3>
+                <p>Specialty: Cardiologist</p>
+                <p>Experience: 10 years</p>
+                <p>Contact: +1 234 567 890</p>
+            </div>
+        </div>
+        <div class="doctor">
+            <img src="./images/d1.jpg" alt="Dr. Mary Smith"> <!-- Placeholder image -->
+            <div>
+                <h3>Dr. Mary Smith</h3>
+                <p>Specialty: Cardiologist</p>
+                <p>Experience: 8 years</p>
+                <p>Contact: +1 234 567 891</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Endocrinologist Department -->
+    <div class="department">
+        <h2>Endocrinologist</h2>
+        <div class="doctor">
+            <img src="./images/d3.jpg" alt="Dr. Susan Williams"> <!-- Placeholder image -->
+            <div>
+                <h3>Dr. Susan Williams</h3>
+                <p>Specialty: Endocrinologist</p>
+                <p>Experience: 12 years</p>
+                <p>Contact: +1 234 567 892</p>
+            </div>
+        </div>
+        <div class="doctor">
+            <img src="./images/d4.jpeg" alt="Dr. Michael Brown"> <!-- Placeholder image -->
+            <div>
+                <h3>Dr. Michael Brown</h3>
+                <p>Specialty: Endocrinologist</p>
+                <p>Experience: 6 years</p>
+                <p>Contact: +1 234 567 893</p>
+            </div>
+        </div>
+    </div>
+
+</div> <!-- End of departments-container -->
+
+<!-- Wrapper for department containers to display side by side -->
+<div class="departments-container">
+
+    <!-- Nephrologist Department -->
+    <div class="department">
+        <h2>Nephrologist</h2>
+        <div class="doctor">
+            <img src="./images/d2.jpg" alt="Dr. Lisa Green"> <!-- Placeholder image -->
+            <div>
+                <h3>Dr. Lisa Green</h3>
+                <p>Specialty: Nephrologist</p>
+                <p>Experience: 15 years</p>
+                <p>Contact: +1 234 567 894</p>
+            </div>
+        </div>
+        <div class="doctor">
+            <img src="./images/b2.webp" alt="Dr. James Taylor"> <!-- Placeholder image -->
+            <div>
+                <h3>Dr. James Taylor</h3>
+                <p>Specialty: Nephrologist</p>
+                <p>Experience: 10 years</p>
+                <p>Contact: +1 234 567 895</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diabetologists Department -->
+    <div class="department">
+        <h2>Diabetologists</h2>
+        <div class="doctor">
+            <img src="./images/b3.webp" alt="Dr. Karen Johnson"> <!-- Placeholder image -->
+            <div>
+                <h3>Dr. Karen Johnson</h3>
+                <p>Specialty: Diabetologist</p>
+                <p>Experience: 20 years</p>
+                <p>Contact: +1 234 567 896</p>
+            </div>
+        </div>
+        <div class="doctor">
+            <img src="./images/b4.jpg" alt="Dr. David Lee"> <!-- Placeholder image -->
+            <div>
+                <h3>Dr. David Lee</h3>
+                <p>Specialty: Diabetologist</p>
+                <p>Experience: 5 years</p>
+                <p>Contact: +1 234 567 897</p>
+            </div>
+        </div>
+    </div>
+
+</div> <!-- End of departments-container -->
+
+<footer>
+    <p>&copy; 2025 Doctors Directory | All Rights Reserved</p>
+</footer>
+
+</body>
+</html>

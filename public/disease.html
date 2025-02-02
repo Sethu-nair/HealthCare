@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Information</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: CENTER;
+            height: 90vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            background-image: url('./images/LAB3.png'); /* Add your PNG background image */
+            background-size: cover; /* Make sure the background image covers the entire page */
+            background-position: center center; 
+        }
+
+        .box-container {
+            display: flex;
+            gap: 80px;
+        }
+
+        .box {
+            width: 180px; /* Smaller size for the boxes */
+            height: 150px; /* Smaller size for the boxes */
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .box img {
+            width: 70%; /* Adjust image size within the box */
+            height: 80%; /* Adjust image size within the box */
+            object-fit: cover;
+            margin-top: 20px;
+        }
+
+        .box:hover {
+            transform: scale(1.05);
+        }
+
+        .box h3 {
+            margin-top: 10px;
+            font-size: 1.2rem; /* Smaller text size for the box title */
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="box-container">
+        <!-- Renal Function Box -->
+        <div class="box" onclick="window.location.href='renal-function.html'">
+            <img src="./images/KIDNEY.jpg" alt="Renal Function">
+            <h3>Renal Function</h3>
+        </div>
+
+        <!-- Thyroid Box -->
+        <div class="box" onclick="window.location.href='thyroid.html'">
+            <img src="./images/THY.jpg" alt="Thyroid">
+            <h3>Thyroid</h3>
+        </div>
+
+        <!-- Cholesterol Box -->
+        <div class="box" onclick="window.location.href='cholesterol.html'">
+            <img src="./images/CHOL.png" alt="Cholesterol">
+            <h3>Cholesterol</h3>
+        </div>
+    </div>
+<!-- footer.html -->
+<div style="text-align: center; margin-top: 30px; padding: 20px; position: fixed; bottom: 10px; width: 100%;">
+    <a href="home.html" style="
+        display: inline-block;
+        padding: 12px 24px;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 18px;
+        font-weight: bold;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    ">🏠 Go to Home</a>
+</div>
+
+</body>
+</html>

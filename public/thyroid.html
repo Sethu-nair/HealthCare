@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thyroid Function Test Analysis</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('./images/thyroid.jpg') no-repeat center center/cover;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: black;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 90%;
+            max-width: 600px;
+            color: black;
+        }
+        h2 {
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: 2em;
+        }
+        label {
+            font-size: 1.1em;
+            font-weight: 400;
+            display: block;
+            margin: 15px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #000;
+            font-size: 1.1em;
+            text-align: center;
+            color: black;
+            background-color: white;
+        }
+        button {
+            background: #ff5e62;
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #ffcccc;
+        }
+
+        /* Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            color: black;
+        }
+        .modal-content img {
+            width: 100%;
+            max-height: 250px;
+            object-fit: contain; /* Ensures full image is shown */
+            border-radius: 10px;
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: red;
+        }
+        .diet-plan {
+            margin-top: 15px;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Thyroid Function Test</h2>
+    <form id="thyroidForm">
+        <label>T3 (Total Tri-iodothyronine) (ng/dL):</label>
+        <input type="number" id="t3" required>
+
+        <label>T4 (Total Thyroxine) (µg/dL):</label>
+        <input type="number" id="t4" required>
+
+        <label>TSH (Thyroid Stimulating Hormone) (µIU/mL):</label>
+        <input type="number" id="tsh" required>
+
+        <button type="submit">Analyze Results</button>
+    </form>
+</div>
+
+<!-- Modal (Popup) -->
+<div id="resultModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="modalTitle"></h2>
+        <img id="modalImage" src="" alt="Thyroid Condition">
+        <div class="diet-plan" id="modalText"></div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("thyroidForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        
+        const t3 = parseFloat(document.getElementById("t3").value);
+        const t4 = parseFloat(document.getElementById("t4").value);
+        const tsh = parseFloat(document.getElementById("tsh").value);
+        const modal = document.getElementById("resultModal");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalText = document.getElementById("modalText");
+        const modalImage = document.getElementById("modalImage");
+
+        if (tsh < 0.35) {
+            modalTitle.innerHTML = "Hyperthyroidism Detected!";
+            modalText.innerHTML = `
+                <b>Recommended Diet:</b>
+                <ul>
+                    <li>Eat more dairy products like milk and cheese</li>
+                    <li>Increase protein intake (eggs, chicken, tofu)</li>
+                    <li>Consume iodine-rich foods like seaweed and fish</li>
+                    <li>Avoid caffeine and processed foods</li>
+                </ul>
+            `;
+            modalImage.src = "./images/hyperthyroidism.jpg";
+        } else if (tsh > 5.50) {
+            modalTitle.innerHTML = "Hypothyroidism Detected!";
+            modalText.innerHTML = `
+                <b>Recommended Diet:</b>
+                <ul>
+                    <li>Eat more fruits, vegetables, and whole grains</li>
+                    <li>Consume selenium-rich foods like Brazil nuts and tuna</li>
+                    <li>Include zinc sources like beef, chickpeas, and cashews</li>
+                    <li>Avoid excessive soy products and goitrogenic foods</li>
+                </ul>
+            `;
+            modalImage.src = "./images/hypothyrodism.jpg";
+        } else {
+            modalTitle.innerHTML = "Your Thyroid Levels are Normal!";
+            modalText.innerHTML = `<p>Maintain a balanced diet and regular check-ups.</p>`;
+            
+        }
+
+        modal.style.display = "flex";
+    });
+
+    function closeModal() {
+        document.getElementById("resultModal").style.display = "none";
+    }
+</script>
+<!-- footer.html -->
+<div style="text-align: center; margin-top: 30px; padding: 20px; position: fixed; bottom: 10px; width: 100%;">
+    <a href="home.html" style="
+        display: inline-block;
+        padding: 12px 24px;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 18px;
+        font-weight: bold;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    ">🏠 Go to Home</a>
+</div>
+
+</body>
+</html>

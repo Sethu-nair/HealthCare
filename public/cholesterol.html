@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Report Analyzer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #FAD0C5;
+            background-image: url('./images/1-blood.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        h2 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background: #007bff;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .result, .recommendation {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .normal { background: lightgreen; color: black; }
+        .borderline { background: yellow; color: black; }
+        .high { background: red; color: white; }
+
+        .recommendation {
+            background: #f0f0f0;
+            padding: 10px;
+            margin-top: 10px;
+            border-left: 5px solid #007bff;
+            color: black;
+        }
+
+        .warning {
+            color: red;
+            font-weight: bold;
+        }
+
+        /* Modal styles */
+        #myModal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        .modal-header {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        #myChart {
+            margin-top: 20px;
+            width: 100%;
+            height: 300px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js CDN -->
+</head>
+<body>
+    <div class="container">
+        <h2>Enter Your Lab Results</h2>
+        
+        <label for="cholesterol">Total Cholesterol (mg/dL):</label>
+        <input type="number" id="cholesterol" placeholder="Enter value">
+        
+        <label for="triglycerides">Triglycerides (mg/dL):</label>
+        <input type="number" id="triglycerides" placeholder="Enter value">
+        
+        <label for="hdl">HDL Cholesterol (mg/dL):</label>
+        <input type="number" id="hdl" placeholder="Enter value">
+        
+        <label for="ldl">LDL Cholesterol (mg/dL):</label>
+        <input type="number" id="ldl" placeholder="Enter value">
+        
+        <button onclick="analyzeReport()">Analyze</button>
+    </div>
+
+    <!-- Modal for showing the result -->
+    <div id="myModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="output" class="result"></div>
+            <div id="diet" class="recommendation"></div>
+            <div id="exercise" class="recommendation"></div>
+            <div id="warning" class="warning"></div>
+
+            
+            <!-- Chart for Cholesterol Levels -->
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        function analyzeReport() {
+            // Get input values
+            let cholesterol = parseFloat(document.getElementById("cholesterol").value);
+            let triglycerides = parseFloat(document.getElementById("triglycerides").value);
+            let hdl = parseFloat(document.getElementById("hdl").value);
+            let ldl = parseFloat(document.getElementById("ldl").value);
+
+            if (isNaN(cholesterol) || isNaN(triglycerides) || isNaN(hdl) || isNaN(ldl)) {
+                warning.textContent = "⚠️ Please enter values for all fields.";
+                return; // Stop further processing if any field is empty
+            }
+            // Get the output and recommendation elements
+            let output = document.getElementById("output");
+            let diet = document.getElementById("diet");
+            let exercise = document.getElementById("exercise");
+            let warning = document.getElementById("warning");
+
+            // Clear previous messages
+            warning.textContent = "";
+            output.textContent = "";
+            diet.innerHTML = "";
+            exercise.innerHTML = "";
+
+            // Check if all inputs are provided
+            
+
+            // Analysis logic
+            let message = "", dietPlan = "", exercisePlan = "";
+
+            if (cholesterol < 200) message += "✅ Total Cholesterol: Normal\n";
+            else if (cholesterol <= 239) message += "⚠️ Total Cholesterol: Borderline High\n";
+            else message += "❌ Total Cholesterol: High\n";
+
+            if (triglycerides < 150) message += "✅ Triglycerides: Normal\n";
+            else if (triglycerides <= 199) message += "⚠️ Triglycerides: Borderline High\n";
+            else message += "❌ Triglycerides: High\n";
+
+            if (hdl > 40) message += "✅ HDL Cholesterol: Desirable\n";
+            else if (hdl >= 35) message += "⚠️ HDL Cholesterol: Borderline\n";
+            else message += "❌ HDL Cholesterol: Undesirable\n";
+
+            if (ldl < 130) message += "✅ LDL Cholesterol: Desirable\n";
+            else if (ldl <= 159) message += "⚠️ LDL Cholesterol: Borderline High\n";
+            else message += "❌ LDL Cholesterol: High\n";
+
+            if (cholesterol > 239 || triglycerides > 199 || ldl > 159) {
+                dietPlan = "<b>Diet Suggestions:</b><br>- Increase fiber intake.<br>- Avoid trans fats.<br>- Eat more healthy fats.<br>- Consume lean proteins.<br>";
+                exercisePlan = "<b>Exercise Recommendations:</b><br>- At least 30 minutes of daily exercise.<br>- Focus on aerobic exercises.<br>- Include strength training.<br>- Try yoga & meditation.<br>";
+            } else if (cholesterol > 199 || triglycerides > 149 || ldl > 129) {
+                dietPlan = "<b>Diet Suggestions:</b><br>- Reduce sugar intake.<br>- Drink more water.<br>- Limit red meat.<br>";
+                exercisePlan = "<b>Exercise Recommendations:</b><br>- 20-30 minutes of moderate exercise.<br>- Try brisk walking, light jogging.<br>";
+            } else {
+                dietPlan = "<b>Diet Suggestions:</b><br>- Maintain a balanced diet.<br>- Continue healthy habits.<br>";
+                exercisePlan = "<b>Exercise Recommendations:</b><br>- Keep up with daily movement.<br>- Include fun activities.<br>";
+            }
+
+            // Display results
+            output.textContent = message;
+            output.className = "result " + (cholesterol > 239 || triglycerides > 199 || ldl > 159 ? "high" : cholesterol > 199 || triglycerides > 149 || ldl > 129 ? "borderline" : "normal");
+            diet.innerHTML = dietPlan;
+            exercise.innerHTML = exercisePlan;
+
+            // Display the chart
+            displayChart(cholesterol, triglycerides, hdl, ldl);
+
+            // Show the modal
+            document.getElementById("myModal").style.display = "block";
+        }
+
+        function displayChart(cholesterol, triglycerides, hdl, ldl) {
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Total Cholesterol', 'Triglycerides', 'HDL', 'LDL'],
+                    datasets: [{
+                        label: 'Your Levels (mg/dL)',
+                        data: [cholesterol, triglycerides, hdl, ldl],
+                        backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545'],
+                        borderColor: ['#0056b3', '#218838', '#e0a800', '#c82333'],
+                        borderWidth: 1
+                    }, {
+                        label: 'Normal Levels (mg/dL)',
+                        data: [200, 150, 40, 130],
+                        backgroundColor: ['#d6e9f8', '#d4edda', '#fff3cd', '#f8d7da'],
+                        borderColor: ['#b8daff', '#c3e6cb', '#ffeeba', '#f5c6cb'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 300
+                        }
+                    }
+                }
+            });
+        }
+
+        // Close the modal
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+    </script>
+    <!-- footer.html -->
+<div style="text-align: center; margin-top: 30px; padding: 20px; position: fixed; bottom: 10px; width: 100%;">
+    <a href="home.html" style="
+        display: inline-block;
+        padding: 12px 24px;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 18px;
+        font-weight: bold;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    ">🏠 Go to Home</a>
+</div>
+
+</body>
+</html>
