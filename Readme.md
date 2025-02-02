@@ -42,18 +42,33 @@ node server.js
 For Software:
 
 # Screenshots (Add at least 3)
-![Screenshot1](Add screenshot 1 here with proper name)
+![Screenshot 2025-02-02 233703](https://github.com/user-attachments/assets/e541fa59-c485-448a-8bbc-a701a5f81139)
+Renal Function Test. 
 The Renal Function Analysis page allows users to input lab values (Creatinine, BUN, eGFR, etc.) to receive a comprehensive kidney health assessment. The app generates a report with graphical analysis of the user's values compared to normal ranges, along with personalized diet and exercise recommendations. This information is for educational purposes only and does not constitute medical advice. Consult a healthcare professional for any health concerns.
 
-![Screenshot2](Add screenshot 2 here with proper name)
+
+ ![Screenshot 2025-02-02 233809](https://github.com/user-attachments/assets/fbc166b6-efa3-416c-97b2-85b76bd581ae)
+Personalized AI Diet Planning ChatBot.
 The Real-time Monitoring feature connects to compatible smartwatches to display live heart rate data (BPM), calculates heart rate zones, and sends alerts for unusual fluctuations. Historical data is stored for trend analysis. This feature is for informational purposes only and not a substitute for medical advice. Consult a doctor for health concerns.
 
-![Screenshot3](Add screenshot 3 here with proper name)
+![Screenshot 2025-02-02 233841](https://github.com/user-attachments/assets/b663331c-f612-4131-a992-d5c5cb5aaad8)
+
+Real Time BP Monitoring
 The AI Chatbot provides personalized recipe recommendations based on user dietary restrictions, allergies, and health goals. Users can interact conversationally to find recipes, view details (ingredients, instructions, nutrition), and save favorites. This tool is for informational purposes only and not a substitute for professional dietary advice. Consult a dietitian for personalized guidance.
 
 # Diagrams
+![FlowChart](https://github.com/user-attachments/assets/ee0d8c4b-898f-4c57-ad98-1f15a2cce6d2)
 
-Add caption explaining your workflow
+This flowchart outlines the workflow of a health application:
+
+Signup/Login: Users sign up or log in to access the Home Page.
+Home Page Options:
+Lab Report Analysis: Analyze Thyroid, Renal, or Cholesterol reports with graphical comparisons and suggestions.
+AI Chatbot: Access a chatbot for assistance.
+Real-Time Monitoring: Connect smartwatch devices to monitor heart rates and receive alerts.
+Doctor Appointment: View doctors by department.
+Articles: Read health-related articles.
+This design supports easy navigation for health monitoring and user engagement.
 
 
 
@@ -61,11 +76,8 @@ Add caption explaining your workflow
 ![Components](Add photo of your components here)
 This diagram illustrates the client-server architecture of our application. The frontend, built using HTML, CSS, and JavaScript, interacts with the backend API, which is developed using Node.js and Express.js. The backend communicates with a MongoDB database to store and retrieve data.
 
-![Build](Add photos of build process here)
 
 
-![Final](Add photo of final product here)
-This project delivers a comprehensive health management web app where users can analyze lab reports (Thyroid, Renal, Cholesterol) with graphical results and personalized recommendations, chat with an AI chatbot for health info, monitor heart rate in real-time (smart device connection & alerts), find and book doctor appointments by department, and access health articles. Deployed at [your URL or "run locally"], the app provides a user-friendly interface (HTML, CSS, JS frontend) and a robust backend (Node.js/Express.js, MongoDB). Users can easily navigate the features to manage their health data and access vital information.
 
 ### Project Demo
 # Video
